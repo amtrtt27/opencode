@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov-clean.info - ../schema/src/v1/permission.ts</title>
+  <link rel="stylesheet" type="text/css" href="../../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory ../schema/src/v1">../schema/src/v1</a> - permission.ts</td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov-clean.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">44</td>
+            <td class="headerCovTableEntry">44</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-08-27 14:29:40</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">-</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+                  <tr><td><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">            Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span> <span class="tlaGNC">          45 : export * as PermissionV1 from &quot;./permission&quot;</span></span>
+<span id="L2"><span class="lineNum">       2</span>              : </span>
+<span id="L3"><span class="lineNum">       3</span> <span class="tlaGNC">          32 : import { Schema } from &quot;effect&quot;</span></span>
+<span id="L4"><span class="lineNum">       4</span> <span class="tlaGNC">          45 : import { define, inventory } from &quot;../event&quot;</span></span>
+<span id="L5"><span class="lineNum">       5</span> <span class="tlaGNC">          42 : import { ascending } from &quot;../identifier&quot;</span></span>
+<span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC">          37 : import { Project } from &quot;../project&quot;</span></span>
+<span id="L7"><span class="lineNum">       7</span> <span class="tlaGNC">          36 : import { statics } from &quot;../schema&quot;</span></span>
+<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">          42 : import { SessionID } from &quot;../session-id&quot;</span></span>
+<span id="L9"><span class="lineNum">       9</span>              : </span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">          70 : export const ID = Schema.String.check(Schema.isStartsWith(&quot;per&quot;)).pipe(</span></span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">          30 :   Schema.brand(&quot;PermissionID&quot;),</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">          35 :   statics((schema) =&gt; ({ ascending: (id?: string) =&gt; schema.make(id ?? &quot;per_&quot; + ascending()) })),</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">           3 : )</span></span>
+<span id="L14"><span class="lineNum">      14</span>              : export type ID = typeof ID.Type</span>
+<span id="L15"><span class="lineNum">      15</span>              : </span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">         109 : export const Action = Schema.Literals([&quot;allow&quot;, &quot;deny&quot;, &quot;ask&quot;]).annotate({ identifier: &quot;PermissionAction&quot; })</span></span>
+<span id="L17"><span class="lineNum">      17</span>              : export type Action = typeof Action.Type</span>
+<span id="L18"><span class="lineNum">      18</span>              : </span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">         116 : export const Rule = Schema.Struct({ permission: Schema.String, pattern: Schema.String, action: Action }).annotate({</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          29 :   identifier: &quot;PermissionRule&quot;,</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           3 : })</span></span>
+<span id="L22"><span class="lineNum">      22</span>              : export type Rule = typeof Rule.Type</span>
+<span id="L23"><span class="lineNum">      23</span>              : </span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          88 : export const Ruleset = Schema.Array(Rule).annotate({ identifier: &quot;PermissionRuleset&quot; })</span></span>
+<span id="L25"><span class="lineNum">      25</span>              : export type Ruleset = typeof Ruleset.Type</span>
+<span id="L26"><span class="lineNum">      26</span>              : </span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          39 : export const Request = Schema.Struct({</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           9 :   id: ID,</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          23 :   sessionID: SessionID,</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          28 :   permission: Schema.String,</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          40 :   patterns: Schema.Array(Schema.String),</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          57 :   metadata: Schema.Record(Schema.String, Schema.Unknown),</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          38 :   always: Schema.Array(Schema.String),</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          90 :   tool: Schema.optional(Schema.Struct({ messageID: Schema.String, callID: Schema.String })),</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          49 : }).annotate({ identifier: &quot;PermissionRequest&quot; })</span></span>
+<span id="L36"><span class="lineNum">      36</span>              : export type Request = typeof Request.Type</span>
+<span id="L37"><span class="lineNum">      37</span>              : </span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          67 : export const Reply = Schema.Literals([&quot;once&quot;, &quot;always&quot;, &quot;reject&quot;])</span></span>
+<span id="L39"><span class="lineNum">      39</span>              : export type Reply = typeof Reply.Type</span>
+<span id="L40"><span class="lineNum">      40</span>              : </span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">         109 : export const ReplyBody = Schema.Struct({ reply: Reply, message: Schema.optional(Schema.String) }).annotate({</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">          34 :   identifier: &quot;PermissionReplyBody&quot;,</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           3 : })</span></span>
+<span id="L44"><span class="lineNum">      44</span>              : export type ReplyBody = typeof ReplyBody.Type</span>
+<span id="L45"><span class="lineNum">      45</span>              : </span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">         115 : export const Approval = Schema.Struct({ projectID: Project.ID, patterns: Schema.Array(Schema.String) }).annotate({</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">          33 :   identifier: &quot;PermissionApproval&quot;,</span></span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">           3 : })</span></span>
+<span id="L49"><span class="lineNum">      49</span>              : export type Approval = typeof Approval.Type</span>
+<span id="L50"><span class="lineNum">      50</span>              : </span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">         115 : export const AskInput = Schema.Struct({ ...Request.fields, id: Schema.optional(ID), ruleset: Ruleset }).annotate({</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          33 :   identifier: &quot;PermissionAskInput&quot;,</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">           3 : })</span></span>
+<span id="L54"><span class="lineNum">      54</span>              : export type AskInput = typeof AskInput.Type</span>
+<span id="L55"><span class="lineNum">      55</span>              : </span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          91 : export const ReplyInput = Schema.Struct({ requestID: ID, ...ReplyBody.fields }).annotate({</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">          35 :   identifier: &quot;PermissionReplyInput&quot;,</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">           3 : })</span></span>
+<span id="L59"><span class="lineNum">      59</span>              : export type ReplyInput = typeof ReplyInput.Type</span>
+<span id="L60"><span class="lineNum">      60</span>              : </span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">          75 : const Asked = define({ type: &quot;permission.asked&quot;, schema: Request.fields })</span></span>
+<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">          25 : const Replied = define({</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">          29 :   type: &quot;permission.replied&quot;,</span></span>
+<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">          62 :   schema: { sessionID: SessionID, requestID: ID, reply: Reply },</span></span>
+<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">           3 : })</span></span>
+<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">          79 : export const Event = { Asked, Replied, Definitions: inventory(Asked, Replied) }</span></span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

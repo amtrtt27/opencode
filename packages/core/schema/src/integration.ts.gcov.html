@@ -1,0 +1,205 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov-clean.info - ../schema/src/integration.ts</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory ../schema/src">../schema/src</a> - integration.ts</td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov-clean.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">96</td>
+            <td class="headerCovTableEntry">96</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-08-27 14:29:40</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">-</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+                  <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">            Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span> <span class="tlaGNC">           7 : export * as Integration from &quot;./integration&quot;</span></span>
+<span id="L2"><span class="lineNum">       2</span>              : </span>
+<span id="L3"><span class="lineNum">       3</span> <span class="tlaGNC">          32 : import { Schema } from &quot;effect&quot;</span></span>
+<span id="L4"><span class="lineNum">       4</span> <span class="tlaGNC">          36 : import { optional } from &quot;./schema&quot;</span></span>
+<span id="L5"><span class="lineNum">       5</span> <span class="tlaGNC">          44 : import { define, inventory } from &quot;./event&quot;</span></span>
+<span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC">          42 : import { Connection } from &quot;./connection&quot;</span></span>
+<span id="L7"><span class="lineNum">       7</span> <span class="tlaGNC">          41 : import { ascending } from &quot;./identifier&quot;</span></span>
+<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">          35 : import { statics } from &quot;./schema&quot;</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">          70 : import { IntegrationID, IntegrationMethodID } from &quot;./integration-id&quot;</span></span>
+<span id="L10"><span class="lineNum">      10</span>              : </span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">          32 : export const ID = IntegrationID</span></span>
+<span id="L12"><span class="lineNum">      12</span>              : export type ID = typeof ID.Type</span>
+<span id="L13"><span class="lineNum">      13</span>              : </span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">          44 : export const MethodID = IntegrationMethodID</span></span>
+<span id="L15"><span class="lineNum">      15</span>              : export type MethodID = typeof MethodID.Type</span>
+<span id="L16"><span class="lineNum">      16</span>              : </span>
+<span id="L17"><span class="lineNum">      17</span>              : export interface When extends Schema.Schema.Type&lt;typeof When&gt; {}</span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          36 : export const When = Schema.Struct({</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          21 :   key: Schema.String,</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          37 :   op: Schema.Literals([&quot;eq&quot;, &quot;neq&quot;]),</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          21 :   value: Schema.String,</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          48 : }).annotate({ identifier: &quot;Integration.When&quot; })</span></span>
+<span id="L23"><span class="lineNum">      23</span>              : </span>
+<span id="L24"><span class="lineNum">      24</span>              : export interface TextPrompt extends Schema.Schema.Type&lt;typeof TextPrompt&gt; {}</span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          42 : export const TextPrompt = Schema.Struct({</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          31 :   type: Schema.Literal(&quot;text&quot;),</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          21 :   key: Schema.String,</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          25 :   message: Schema.String,</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          39 :   placeholder: optional(Schema.String),</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          21 :   when: optional(When),</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          54 : }).annotate({ identifier: &quot;Integration.TextPrompt&quot; })</span></span>
+<span id="L32"><span class="lineNum">      32</span>              : </span>
+<span id="L33"><span class="lineNum">      33</span>              : export interface SelectPrompt extends Schema.Schema.Type&lt;typeof SelectPrompt&gt; {}</span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          44 : export const SelectPrompt = Schema.Struct({</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          33 :   type: Schema.Literal(&quot;select&quot;),</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          21 :   key: Schema.String,</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">          25 :   message: Schema.String,</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          22 :   options: Schema.Array(</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          19 :     Schema.Struct({</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          25 :       label: Schema.String,</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          25 :       value: Schema.String,</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">          31 :       hint: optional(Schema.String),</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           2 :     }),</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           4 :   ),</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">          21 :   when: optional(When),</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          56 : }).annotate({ identifier: &quot;Integration.SelectPrompt&quot; })</span></span>
+<span id="L47"><span class="lineNum">      47</span>              : </span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">          98 : export const Prompt = Schema.Union([TextPrompt, SelectPrompt]).pipe(Schema.toTaggedUnion(&quot;type&quot;))</span></span>
+<span id="L49"><span class="lineNum">      49</span>              : export type Prompt = typeof Prompt.Type</span>
+<span id="L50"><span class="lineNum">      50</span>              : </span>
+<span id="L51"><span class="lineNum">      51</span>              : export interface OAuthMethod extends Schema.Schema.Type&lt;typeof OAuthMethod&gt; {}</span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          43 : export const OAuthMethod = Schema.Struct({</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          15 :   id: MethodID,</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          32 :   type: Schema.Literal(&quot;oauth&quot;),</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">          23 :   label: Schema.String,</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          40 :   prompts: optional(Schema.Array(Prompt)),</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">          55 : }).annotate({ identifier: &quot;Integration.OAuthMethod&quot; })</span></span>
+<span id="L58"><span class="lineNum">      58</span>              : </span>
+<span id="L59"><span class="lineNum">      59</span>              : export interface KeyMethod extends Schema.Schema.Type&lt;typeof KeyMethod&gt; {}</span>
+<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">          41 : export const KeyMethod = Schema.Struct({</span></span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">          30 :   type: Schema.Literal(&quot;key&quot;),</span></span>
+<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">          31 :   label: optional(Schema.String),</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">          53 : }).annotate({ identifier: &quot;Integration.KeyMethod&quot; })</span></span>
+<span id="L64"><span class="lineNum">      64</span>              : </span>
+<span id="L65"><span class="lineNum">      65</span>              : export interface EnvMethod extends Schema.Schema.Type&lt;typeof EnvMethod&gt; {}</span>
+<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">          41 : export const EnvMethod = Schema.Struct({</span></span>
+<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">          30 :   type: Schema.Literal(&quot;env&quot;),</span></span>
+<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">          35 :   names: Schema.Array(Schema.String),</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          53 : }).annotate({ identifier: &quot;Integration.EnvMethod&quot; })</span></span>
+<span id="L70"><span class="lineNum">      70</span>              : </span>
+<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          71 : export const Method = Schema.Union([OAuthMethod, KeyMethod, EnvMethod])</span></span>
+<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">          35 :   .pipe(Schema.toTaggedUnion(&quot;type&quot;))</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">          48 :   .annotate({ identifier: &quot;Integration.Method&quot; })</span></span>
+<span id="L74"><span class="lineNum">      74</span>              : export type Method = typeof Method.Type</span>
+<span id="L75"><span class="lineNum">      75</span>              : </span>
+<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">         113 : export const Inputs = Schema.Record(Schema.String, Schema.String).annotate({ identifier: &quot;Integration.Inputs&quot; })</span></span>
+<span id="L77"><span class="lineNum">      77</span>              : export type Inputs = typeof Inputs.Type</span>
+<span id="L78"><span class="lineNum">      78</span>              : </span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          25 : const Updated = define({</span></span>
+<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">          30 :   type: &quot;integration.updated&quot;,</span></span>
+<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">          11 :   schema: {},</span></span>
+<span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">           3 : })</span></span>
+<span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">          35 : const ConnectionUpdated = define({</span></span>
+<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">          41 :   type: &quot;integration.connection.updated&quot;,</span></span>
+<span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">          30 :   schema: { integrationID: ID },</span></span>
+<span id="L86"><span class="lineNum">      86</span> <span class="tlaGNC">           3 : })</span></span>
+<span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC">         104 : export const Event = { Updated, ConnectionUpdated, Definitions: inventory(Updated, ConnectionUpdated) }</span></span>
+<span id="L88"><span class="lineNum">      88</span>              : </span>
+<span id="L89"><span class="lineNum">      89</span>              : export interface Ref extends Schema.Schema.Type&lt;typeof Ref&gt; {}</span>
+<span id="L90"><span class="lineNum">      90</span> <span class="tlaGNC">          35 : export const Ref = Schema.Struct({</span></span>
+<span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">           9 :   id: ID,</span></span>
+<span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">          20 :   name: Schema.String,</span></span>
+<span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">          47 : }).annotate({ identifier: &quot;Integration.Ref&quot; })</span></span>
+<span id="L94"><span class="lineNum">      94</span>              : </span>
+<span id="L95"><span class="lineNum">      95</span> <span class="tlaGNC">          61 : export class Info extends Schema.Class&lt;Info&gt;(&quot;Integration.Info&quot;)({</span></span>
+<span id="L96"><span class="lineNum">      96</span> <span class="tlaGNC">           9 :   id: ID,</span></span>
+<span id="L97"><span class="lineNum">      97</span> <span class="tlaGNC">          22 :   name: Schema.String,</span></span>
+<span id="L98"><span class="lineNum">      98</span> <span class="tlaGNC">          32 :   methods: Schema.Array(Method),</span></span>
+<span id="L99"><span class="lineNum">      99</span> <span class="tlaGNC">          43 :   connections: Schema.Array(Connection.Info),</span></span>
+<span id="L100"><span class="lineNum">     100</span> <span class="tlaGNC">           5 : }) {}</span></span>
+<span id="L101"><span class="lineNum">     101</span>              : </span>
+<span id="L102"><span class="lineNum">     102</span> <span class="tlaGNC">          43 : export const AttemptID = Schema.String.pipe(</span></span>
+<span id="L103"><span class="lineNum">     103</span> <span class="tlaGNC">          39 :   Schema.brand(&quot;Integration.AttemptID&quot;),</span></span>
+<span id="L104"><span class="lineNum">     104</span> <span class="tlaGNC">          70 :   statics((schema) =&gt; ({ create: () =&gt; schema.make(&quot;con_&quot; + ascending()) })),</span></span>
+<span id="L105"><span class="lineNum">     105</span> <span class="tlaGNC">           3 : )</span></span>
+<span id="L106"><span class="lineNum">     106</span>              : export type AttemptID = typeof AttemptID.Type</span>
+<span id="L107"><span class="lineNum">     107</span>              : </span>
+<span id="L108"><span class="lineNum">     108</span> <span class="tlaGNC">          36 : const AttemptTime = Schema.Struct({</span></span>
+<span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">          25 :   created: Schema.Number,</span></span>
+<span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">          23 :   expires: Schema.Number,</span></span>
+<span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">           3 : })</span></span>
+<span id="L112"><span class="lineNum">     112</span>              : </span>
+<span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">          67 : export class Attempt extends Schema.Class&lt;Attempt&gt;(&quot;Integration.Attempt&quot;)({</span></span>
+<span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">          23 :   attemptID: AttemptID,</span></span>
+<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">          21 :   url: Schema.String,</span></span>
+<span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">          30 :   instructions: Schema.String,</span></span>
+<span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC">          42 :   mode: Schema.Literals([&quot;auto&quot;, &quot;code&quot;]),</span></span>
+<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">          18 :   time: AttemptTime,</span></span>
+<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">           5 : }) {}</span></span>
+<span id="L120"><span class="lineNum">     120</span>              : </span>
+<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">          44 : export const AttemptStatus = Schema.Union([</span></span>
+<span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">          74 :   Schema.Struct({ status: Schema.Literal(&quot;pending&quot;), time: AttemptTime }),</span></span>
+<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">          75 :   Schema.Struct({ status: Schema.Literal(&quot;complete&quot;), time: AttemptTime }),</span></span>
+<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">          97 :   Schema.Struct({ status: Schema.Literal(&quot;failed&quot;), message: Schema.String, time: AttemptTime }),</span></span>
+<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">          72 :   Schema.Struct({ status: Schema.Literal(&quot;expired&quot;), time: AttemptTime }),</span></span>
+<span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">           2 : ])</span></span>
+<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">          37 :   .pipe(Schema.toTaggedUnion(&quot;status&quot;))</span></span>
+<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">          54 :   .annotate({ identifier: &quot;Integration.AttemptStatus&quot; })</span></span>
+<span id="L129"><span class="lineNum">     129</span>              : export type AttemptStatus = typeof AttemptStatus.Type</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

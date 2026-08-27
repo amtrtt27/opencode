@@ -1,0 +1,14 @@
+{
+  "name": "17-313 Dev Container",
+
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+
+  "features": {
+    "ghcr.io/devcontainers-extra/features/bun:1": {
+      "version": "1.3.6"
+    },
+    "ghcr.io/devcontainers/features/python:1": {}
+  },
+
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y build-essential"
+}

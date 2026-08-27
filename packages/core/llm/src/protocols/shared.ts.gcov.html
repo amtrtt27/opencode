@@ -1,0 +1,402 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov-clean.info - ../llm/src/protocols/shared.ts</title>
+  <link rel="stylesheet" type="text/css" href="../../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory ../llm/src/protocols">../llm/src/protocols</a> - shared.ts</td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov-clean.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">40.1&nbsp;%</td>
+            <td class="headerCovTableEntry">172</td>
+            <td class="headerCovTableEntry">69</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-08-27 14:29:40</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">-</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+                  <tr><td><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">            Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span> <span class="tlaGNC">          37 : import { Buffer } from &quot;node:buffer&quot;</span></span>
+<span id="L2"><span class="lineNum">       2</span> <span class="tlaGNC">          48 : import { Effect, Schema, Stream } from &quot;effect&quot;</span></span>
+<span id="L3"><span class="lineNum">       3</span> <span class="tlaGNC">          52 : import * as Sse from &quot;effect/unstable/encoding/Sse&quot;</span></span>
+<span id="L4"><span class="lineNum">       4</span> <span class="tlaGNC">          66 : import { Headers, HttpClientRequest } from &quot;effect/unstable/http&quot;</span></span>
+<span id="L5"><span class="lineNum">       5</span> <span class="tlaGNC">          90 : import {</span></span>
+<span id="L6"><span class="lineNum">       6</span>              :   InvalidProviderOutputReason,</span>
+<span id="L7"><span class="lineNum">       7</span>              :   InvalidRequestReason,</span>
+<span id="L8"><span class="lineNum">       8</span>              :   LLMError,</span>
+<span id="L9"><span class="lineNum">       9</span>              :   type ContentPart,</span>
+<span id="L10"><span class="lineNum">      10</span>              :   type LLMRequest,</span>
+<span id="L11"><span class="lineNum">      11</span>              :   type MediaPart,</span>
+<span id="L12"><span class="lineNum">      12</span>              :   type ToolFileContent,</span>
+<span id="L13"><span class="lineNum">      13</span>              :   type TextPart,</span>
+<span id="L14"><span class="lineNum">      14</span>              :   type ToolResultPart,</span>
+<span id="L15"><span class="lineNum">      15</span>              : } from &quot;../schema&quot;</span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          43 : import { isRecord } from &quot;../utils/record&quot;</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          20 : export { isRecord }</span></span>
+<span id="L18"><span class="lineNum">      18</span>              : </span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          58 : export const Json = Schema.fromJsonString(Schema.Unknown)</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          57 : export const decodeJson = Schema.decodeUnknownSync(Json)</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          50 : export const encodeJson = Schema.encodeSync(Json)</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          38 : const isJson = Schema.is(Schema.Json)</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          71 : export const JsonObject = Schema.Record(Schema.String, Schema.Unknown)</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          77 : export const optionalArray = &lt;const S extends Schema.Top&gt;(schema: S) =&gt; Schema.optional(Schema.Array(schema))</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          77 : export const optionalNull = &lt;const S extends Schema.Top&gt;(schema: S) =&gt; Schema.optional(Schema.NullOr(schema))</span></span>
+<span id="L26"><span class="lineNum">      26</span>              : </span>
+<span id="L27"><span class="lineNum">      27</span>              : /**</span>
+<span id="L28"><span class="lineNum">      28</span>              :  * Streaming tool-call accumulator. Adapters that build a tool call across</span>
+<span id="L29"><span class="lineNum">      29</span>              :  * multiple `tool-input-delta` chunks store the partial JSON input string here</span>
+<span id="L30"><span class="lineNum">      30</span>              :  * and finalize it with `parseToolInput` once the call completes.</span>
+<span id="L31"><span class="lineNum">      31</span>              :  */</span>
+<span id="L32"><span class="lineNum">      32</span>              : export interface ToolAccumulator {</span>
+<span id="L33"><span class="lineNum">      33</span>              :   readonly id: string</span>
+<span id="L34"><span class="lineNum">      34</span>              :   readonly name: string</span>
+<span id="L35"><span class="lineNum">      35</span>              :   readonly input: string</span>
+<span id="L36"><span class="lineNum">      36</span>              : }</span>
+<span id="L37"><span class="lineNum">      37</span>              : </span>
+<span id="L38"><span class="lineNum">      38</span>              : /**</span>
+<span id="L39"><span class="lineNum">      39</span>              :  * `Usage.totalTokens` policy shared by every route. Honors a provider-</span>
+<span id="L40"><span class="lineNum">      40</span>              :  * supplied total; otherwise falls back to `inputTokens + outputTokens` only</span>
+<span id="L41"><span class="lineNum">      41</span>              :  * when at least one is defined. Returns `undefined` when neither input nor</span>
+<span id="L42"><span class="lineNum">      42</span>              :  * output is known so routes don't publish a misleading `0`.</span>
+<span id="L43"><span class="lineNum">      43</span>              :  *</span>
+<span id="L44"><span class="lineNum">      44</span>              :  * Under the additive `LLM.Usage` contract, `inputTokens` and `outputTokens`</span>
+<span id="L45"><span class="lineNum">      45</span>              :  * are the non-cached input and visible output only. The provider-supplied</span>
+<span id="L46"><span class="lineNum">      46</span>              :  * `total` is the source of truth when present; the computed fallback</span>
+<span id="L47"><span class="lineNum">      47</span>              :  * under-counts cache and reasoning by design and exists mainly so</span>
+<span id="L48"><span class="lineNum">      48</span>              :  * Anthropic-style providers (which don't surface a total) still get a</span>
+<span id="L49"><span class="lineNum">      49</span>              :  * sensible aggregate on the input + output axes.</span>
+<span id="L50"><span class="lineNum">      50</span>              :  */</span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">          26 : export const totalTokens = (</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          13 :   inputTokens: number | undefined,</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          14 :   outputTokens: number | undefined,</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          10 :   total: number | undefined,</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">           3 : ) =&gt; {</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          39 :   if (total !== undefined) return total</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaUNC">           0 :   if (inputTokens === undefined &amp;&amp; outputTokens === undefined) return undefined</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">           2 :   return (inputTokens ?? 0) + (outputTokens ?? 0)</span></span>
+<span id="L59"><span class="lineNum">      59</span>              : }</span>
+<span id="L60"><span class="lineNum">      60</span>              : </span>
+<span id="L61"><span class="lineNum">      61</span>              : /**</span>
+<span id="L62"><span class="lineNum">      62</span>              :  * Subtract `subtrahend` from `total`, clamping to zero if the provider</span>
+<span id="L63"><span class="lineNum">      63</span>              :  * reports a non-sensical breakdown (e.g. `cached_tokens &gt; prompt_tokens`).</span>
+<span id="L64"><span class="lineNum">      64</span>              :  * Used by protocol mappers when deriving a non-overlapping breakdown field</span>
+<span id="L65"><span class="lineNum">      65</span>              :  * from a provider's inclusive total — `nonCachedInputTokens` from</span>
+<span id="L66"><span class="lineNum">      66</span>              :  * `inputTokens - cacheReadInputTokens - cacheWriteInputTokens`.</span>
+<span id="L67"><span class="lineNum">      67</span>              :  *</span>
+<span id="L68"><span class="lineNum">      68</span>              :  * If `total` is `undefined`, returns `undefined` (we don't fabricate</span>
+<span id="L69"><span class="lineNum">      69</span>              :  * counts). If `subtrahend` is `undefined`, returns `total` unchanged. The</span>
+<span id="L70"><span class="lineNum">      70</span>              :  * provider-native breakdown stays available on `Usage.native` for debugging.</span>
+<span id="L71"><span class="lineNum">      71</span>              :  */</span>
+<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">          54 : export const subtractTokens = (total: number | undefined, subtrahend: number | undefined): number | undefined =&gt; {</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">          29 :   if (total === undefined) return undefined</span></span>
+<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">          34 :   if (subtrahend === undefined) return total</span></span>
+<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">          40 :   return Math.max(0, total - subtrahend)</span></span>
+<span id="L76"><span class="lineNum">      76</span>              : }</span>
+<span id="L77"><span class="lineNum">      77</span>              : </span>
+<span id="L78"><span class="lineNum">      78</span>              : /**</span>
+<span id="L79"><span class="lineNum">      79</span>              :  * Sum a list of optional token counts, returning `undefined` only when</span>
+<span id="L80"><span class="lineNum">      80</span>              :  * every value is `undefined` (so we don't fabricate a `0`). Used by</span>
+<span id="L81"><span class="lineNum">      81</span>              :  * protocol mappers to derive the inclusive `inputTokens` total from a</span>
+<span id="L82"><span class="lineNum">      82</span>              :  * provider that natively reports a non-overlapping breakdown</span>
+<span id="L83"><span class="lineNum">      83</span>              :  * (e.g. Anthropic, whose `input_tokens` is already non-cached only).</span>
+<span id="L84"><span class="lineNum">      84</span>              :  */</span>
+<span id="L85"><span class="lineNum">      85</span> <span class="tlaUNC">           0 : export const sumTokens = (...values: ReadonlyArray&lt;number | undefined&gt;): number | undefined =&gt; {</span></span>
+<span id="L86"><span class="lineNum">      86</span> <span class="tlaUNC">           0 :   if (values.every((value) =&gt; value === undefined)) return undefined</span></span>
+<span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC">           2 :   return values.reduce((acc: number, value) =&gt; acc + (value ?? 0), 0)</span></span>
+<span id="L88"><span class="lineNum">      88</span>              : }</span>
+<span id="L89"><span class="lineNum">      89</span>              : </span>
+<span id="L90"><span class="lineNum">      90</span> <span class="tlaUNC">           0 : export const eventError = (route: string, message: string, raw?: string) =&gt;</span></span>
+<span id="L91"><span class="lineNum">      91</span> <span class="tlaUNC">           0 :   new LLMError({</span></span>
+<span id="L92"><span class="lineNum">      92</span> <span class="tlaUNC">           0 :     module: &quot;ProviderShared&quot;,</span></span>
+<span id="L93"><span class="lineNum">      93</span> <span class="tlaUNC">           0 :     method: &quot;stream&quot;,</span></span>
+<span id="L94"><span class="lineNum">      94</span>              :     reason: new InvalidProviderOutputReason({ route, message, raw }),</span>
+<span id="L95"><span class="lineNum">      95</span> <span class="tlaGNC">           2 :   })</span></span>
+<span id="L96"><span class="lineNum">      96</span>              : </span>
+<span id="L97"><span class="lineNum">      97</span> <span class="tlaUNC">           0 : export const parseJson = (route: string, input: string, message: string) =&gt;</span></span>
+<span id="L98"><span class="lineNum">      98</span> <span class="tlaUNC">           0 :   Effect.try({</span></span>
+<span id="L99"><span class="lineNum">      99</span> <span class="tlaUNC">           0 :     try: () =&gt; decodeJson(input),</span></span>
+<span id="L100"><span class="lineNum">     100</span>              :     catch: () =&gt; eventError(route, message, input),</span>
+<span id="L101"><span class="lineNum">     101</span> <span class="tlaGNC">           2 :   })</span></span>
+<span id="L102"><span class="lineNum">     102</span>              : </span>
+<span id="L103"><span class="lineNum">     103</span>              : /**</span>
+<span id="L104"><span class="lineNum">     104</span>              :  * Join the `text` field of a list of parts with newlines. Used by routes</span>
+<span id="L105"><span class="lineNum">     105</span>              :  * that flatten system / message content arrays into a single provider string</span>
+<span id="L106"><span class="lineNum">     106</span>              :  * (OpenAI Chat `system` content, OpenAI Responses `system` content, Gemini</span>
+<span id="L107"><span class="lineNum">     107</span>              :  * `systemInstruction.parts[].text`).</span>
+<span id="L108"><span class="lineNum">     108</span>              :  */</span>
+<span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">          24 : export const joinText = (parts: ReadonlyArray&lt;{ readonly text: string }&gt;) =&gt; parts.map((part) =&gt; part.text).join(&quot;\n&quot;)</span></span>
+<span id="L110"><span class="lineNum">     110</span>              : </span>
+<span id="L111"><span class="lineNum">     111</span> <span class="tlaUNC">           0 : const escapeSystemUpdateText = (text: string) =&gt;</span></span>
+<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">           2 :   text.replaceAll(&quot;&amp;&quot;, &quot;&amp;amp;&quot;).replaceAll(&quot;&lt;&quot;, &quot;&amp;lt;&quot;).replaceAll(&quot;&gt;&quot;, &quot;&amp;gt;&quot;)</span></span>
+<span id="L113"><span class="lineNum">     113</span>              : </span>
+<span id="L114"><span class="lineNum">     114</span>              : /**</span>
+<span id="L115"><span class="lineNum">     115</span>              :  * Stable fallback representation for chronological `Message.system(...)`</span>
+<span id="L116"><span class="lineNum">     116</span>              :  * updates on routes that do not support that privileged role natively. The</span>
+<span id="L117"><span class="lineNum">     117</span>              :  * wrapper remains visibly lower-authority user text, preserves the original</span>
+<span id="L118"><span class="lineNum">     118</span>              :  * temporal position, and XML-escapes content so it cannot close the wrapper.</span>
+<span id="L119"><span class="lineNum">     119</span>              :  */</span>
+<span id="L120"><span class="lineNum">     120</span> <span class="tlaUNC">           0 : export const wrapSystemUpdate = (parts: ReadonlyArray&lt;{ readonly text: string }&gt;) =&gt;</span></span>
+<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">           2 :   `&lt;system-update&gt;\n${escapeSystemUpdateText(joinText(parts))}\n&lt;/system-update&gt;`</span></span>
+<span id="L122"><span class="lineNum">     122</span>              : </span>
+<span id="L123"><span class="lineNum">     123</span>              : /**</span>
+<span id="L124"><span class="lineNum">     124</span>              :  * Chronological system updates deliberately accept text only. Do not insert</span>
+<span id="L125"><span class="lineNum">     125</span>              :  * raw retrieved, tool, or web content into privileged updates: keep untrusted</span>
+<span id="L126"><span class="lineNum">     126</span>              :  * data in ordinary user/tool messages instead.</span>
+<span id="L127"><span class="lineNum">     127</span>              :  */</span>
+<span id="L128"><span class="lineNum">     128</span> <span class="tlaUNC">           0 : export const systemUpdateText = Effect.fn(&quot;ProviderShared.systemUpdateText&quot;)(function* (</span></span>
+<span id="L129"><span class="lineNum">     129</span> <span class="tlaUNC">           0 :   route: string,</span></span>
+<span id="L130"><span class="lineNum">     130</span> <span class="tlaUNC">           0 :   message: LLMRequest[&quot;messages&quot;][number],</span></span>
+<span id="L131"><span class="lineNum">     131</span> <span class="tlaUNC">           0 : ) {</span></span>
+<span id="L132"><span class="lineNum">     132</span> <span class="tlaUNC">           0 :   const content: TextPart[] = []</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaUNC">           0 :   for (const part of message.content) {</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaUNC">           0 :     if (!supportsContent(part, [&quot;text&quot;])) return yield* unsupportedContent(route, &quot;system&quot;, [&quot;text&quot;])</span></span>
+<span id="L135"><span class="lineNum">     135</span> <span class="tlaUNC">           0 :     content.push(part)</span></span>
+<span id="L136"><span class="lineNum">     136</span> <span class="tlaUNC">           0 :   }</span></span>
+<span id="L137"><span class="lineNum">     137</span>              :   return content</span>
+<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">           3 : })</span></span>
+<span id="L139"><span class="lineNum">     139</span>              : </span>
+<span id="L140"><span class="lineNum">     140</span>              : /** Lower an unsupported privileged update into visible, in-order user text. */</span>
+<span id="L141"><span class="lineNum">     141</span> <span class="tlaUNC">           0 : export const wrappedSystemUpdate = Effect.fn(&quot;ProviderShared.wrappedSystemUpdate&quot;)(function* (</span></span>
+<span id="L142"><span class="lineNum">     142</span> <span class="tlaUNC">           0 :   route: string,</span></span>
+<span id="L143"><span class="lineNum">     143</span> <span class="tlaUNC">           0 :   message: LLMRequest[&quot;messages&quot;][number],</span></span>
+<span id="L144"><span class="lineNum">     144</span> <span class="tlaUNC">           0 : ) {</span></span>
+<span id="L145"><span class="lineNum">     145</span> <span class="tlaUNC">           0 :   const content = yield* systemUpdateText(route, message)</span></span>
+<span id="L146"><span class="lineNum">     146</span>              :   return { type: &quot;text&quot; as const, text: wrapSystemUpdate(content), cache: content.at(-1)?.cache }</span>
+<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">           3 : })</span></span>
+<span id="L148"><span class="lineNum">     148</span>              : </span>
+<span id="L149"><span class="lineNum">     149</span>              : /**</span>
+<span id="L150"><span class="lineNum">     150</span>              :  * Parse the streamed JSON input of a tool call. Treats an empty string as</span>
+<span id="L151"><span class="lineNum">     151</span>              :  * `&quot;{}&quot;` — providers occasionally finish a tool call without ever emitting</span>
+<span id="L152"><span class="lineNum">     152</span>              :  * input deltas (e.g. zero-arg tools). The error message is uniform across</span>
+<span id="L153"><span class="lineNum">     153</span>              :  * routes: `Invalid JSON input for &lt;route&gt; tool call &lt;name&gt;`.</span>
+<span id="L154"><span class="lineNum">     154</span>              :  */</span>
+<span id="L155"><span class="lineNum">     155</span> <span class="tlaUNC">           0 : export const parseToolInput = (route: string, name: string, raw: string) =&gt;</span></span>
+<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">           2 :   parseJson(route, raw || &quot;{}&quot;, `Invalid JSON input for ${route} tool call ${name}`)</span></span>
+<span id="L157"><span class="lineNum">     157</span>              : </span>
+<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">          82 : export const IMAGE_MIMES = [&quot;image/png&quot;, &quot;image/jpeg&quot;, &quot;image/gif&quot;, &quot;image/webp&quot;] as const</span></span>
+<span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC">          74 : export const VIDEO_MIMES = [&quot;video/mp4&quot;, &quot;video/webm&quot;, &quot;video/quicktime&quot;] as const</span></span>
+<span id="L160"><span class="lineNum">     160</span> <span class="tlaGNC">         108 : export const AUDIO_MIMES = [&quot;audio/wav&quot;, &quot;audio/mp3&quot;, &quot;audio/aiff&quot;, &quot;audio/aac&quot;, &quot;audio/ogg&quot;, &quot;audio/flac&quot;] as const</span></span>
+<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">          76 : export const MEDIA_MIMES = [...IMAGE_MIMES, ...VIDEO_MIMES, ...AUDIO_MIMES] as const</span></span>
+<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">          48 : export const MAX_MEDIA_ENCODED_BYTES = 28 * 1024 * 1024</span></span>
+<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">          48 : export const MAX_MEDIA_DECODED_BYTES = 20 * 1024 * 1024</span></span>
+<span id="L164"><span class="lineNum">     164</span>              : </span>
+<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">          89 : const base64Pattern = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/</span></span>
+<span id="L166"><span class="lineNum">     166</span>              : </span>
+<span id="L167"><span class="lineNum">     167</span>              : export interface ValidatedMedia {</span>
+<span id="L168"><span class="lineNum">     168</span>              :   readonly mime: string</span>
+<span id="L169"><span class="lineNum">     169</span>              :   readonly base64: string</span>
+<span id="L170"><span class="lineNum">     170</span>              :   readonly dataUrl: string</span>
+<span id="L171"><span class="lineNum">     171</span>              :   readonly bytes: Uint8Array</span>
+<span id="L172"><span class="lineNum">     172</span>              : }</span>
+<span id="L173"><span class="lineNum">     173</span>              : </span>
+<span id="L174"><span class="lineNum">     174</span> <span class="tlaUNC">           0 : export const validateMedia = Effect.fn(&quot;ProviderShared.validateMedia&quot;)(function* (</span></span>
+<span id="L175"><span class="lineNum">     175</span> <span class="tlaUNC">           0 :   route: string,</span></span>
+<span id="L176"><span class="lineNum">     176</span> <span class="tlaUNC">           0 :   part: MediaPart,</span></span>
+<span id="L177"><span class="lineNum">     177</span> <span class="tlaUNC">           0 :   supportedMimes: ReadonlySet&lt;string&gt;,</span></span>
+<span id="L178"><span class="lineNum">     178</span> <span class="tlaUNC">           0 : ) {</span></span>
+<span id="L179"><span class="lineNum">     179</span> <span class="tlaUNC">           0 :   const mime = part.mediaType.toLowerCase()</span></span>
+<span id="L180"><span class="lineNum">     180</span> <span class="tlaUNC">           0 :   if (!supportedMimes.has(mime)) return yield* invalidRequest(`${route} does not support media type ${part.mediaType}`)</span></span>
+<span id="L181"><span class="lineNum">     181</span> <span class="tlaUNC">           0 : </span></span>
+<span id="L182"><span class="lineNum">     182</span> <span class="tlaUNC">           0 :   let base64: string</span></span>
+<span id="L183"><span class="lineNum">     183</span> <span class="tlaUNC">           0 :   if (typeof part.data !== &quot;string&quot;) {</span></span>
+<span id="L184"><span class="lineNum">     184</span> <span class="tlaUNC">           0 :     if (part.data.byteLength &gt; MAX_MEDIA_DECODED_BYTES)</span></span>
+<span id="L185"><span class="lineNum">     185</span> <span class="tlaUNC">           0 :       return yield* invalidRequest(`${route} media exceeds the ${MAX_MEDIA_DECODED_BYTES} byte decoded limit`)</span></span>
+<span id="L186"><span class="lineNum">     186</span> <span class="tlaUNC">           0 :     base64 = Buffer.from(part.data).toString(&quot;base64&quot;)</span></span>
+<span id="L187"><span class="lineNum">     187</span> <span class="tlaUNC">           0 :   } else if (part.data.startsWith(&quot;data:&quot;)) {</span></span>
+<span id="L188"><span class="lineNum">     188</span> <span class="tlaUNC">           0 :     const match = /^data:([^;,]+);base64,([A-Za-z0-9+/]*={0,2})$/s.exec(part.data)</span></span>
+<span id="L189"><span class="lineNum">     189</span> <span class="tlaUNC">           0 :     if (!match) return yield* invalidRequest(`${route} media data URL must contain valid base64`)</span></span>
+<span id="L190"><span class="lineNum">     190</span> <span class="tlaUNC">           0 :     if (match[1]!.toLowerCase() !== mime)</span></span>
+<span id="L191"><span class="lineNum">     191</span> <span class="tlaUNC">           0 :       return yield* invalidRequest(`${route} media type ${part.mediaType} does not match data URL type ${match[1]}`)</span></span>
+<span id="L192"><span class="lineNum">     192</span> <span class="tlaUNC">           0 :     base64 = match[2]!</span></span>
+<span id="L193"><span class="lineNum">     193</span> <span class="tlaUNC">           0 :   } else {</span></span>
+<span id="L194"><span class="lineNum">     194</span> <span class="tlaUNC">           0 :     base64 = part.data</span></span>
+<span id="L195"><span class="lineNum">     195</span> <span class="tlaUNC">           0 :   }</span></span>
+<span id="L196"><span class="lineNum">     196</span> <span class="tlaUNC">           0 : </span></span>
+<span id="L197"><span class="lineNum">     197</span> <span class="tlaUNC">           0 :   if (Buffer.byteLength(base64, &quot;utf8&quot;) &gt; MAX_MEDIA_ENCODED_BYTES)</span></span>
+<span id="L198"><span class="lineNum">     198</span> <span class="tlaUNC">           0 :     return yield* invalidRequest(`${route} media exceeds the ${MAX_MEDIA_ENCODED_BYTES} byte encoded limit`)</span></span>
+<span id="L199"><span class="lineNum">     199</span> <span class="tlaUNC">           0 :   if (!base64 || base64.length % 4 !== 0 || !base64Pattern.test(base64))</span></span>
+<span id="L200"><span class="lineNum">     200</span> <span class="tlaUNC">           0 :     return yield* invalidRequest(`${route} media must contain valid base64`)</span></span>
+<span id="L201"><span class="lineNum">     201</span> <span class="tlaUNC">           0 :   const bytes = Buffer.from(base64, &quot;base64&quot;)</span></span>
+<span id="L202"><span class="lineNum">     202</span> <span class="tlaUNC">           0 :   if (bytes.byteLength &gt; MAX_MEDIA_DECODED_BYTES)</span></span>
+<span id="L203"><span class="lineNum">     203</span> <span class="tlaUNC">           0 :     return yield* invalidRequest(`${route} media exceeds the ${MAX_MEDIA_DECODED_BYTES} byte decoded limit`)</span></span>
+<span id="L204"><span class="lineNum">     204</span> <span class="tlaUNC">           0 :   if (bytes.toString(&quot;base64&quot;) !== base64) return yield* invalidRequest(`${route} media must contain canonical base64`)</span></span>
+<span id="L205"><span class="lineNum">     205</span>              :   return { mime, base64, dataUrl: `data:${mime};base64,${base64}`, bytes } satisfies ValidatedMedia</span>
+<span id="L206"><span class="lineNum">     206</span> <span class="tlaGNC">           3 : })</span></span>
+<span id="L207"><span class="lineNum">     207</span>              : </span>
+<span id="L208"><span class="lineNum">     208</span> <span class="tlaUNC">           0 : export const validateToolFile = (route: string, part: ToolFileContent, supportedMimes: ReadonlySet&lt;string&gt;) =&gt;</span></span>
+<span id="L209"><span class="lineNum">     209</span> <span class="tlaGNC">           2 :   validateMedia(route, { type: &quot;media&quot;, mediaType: part.mime, data: part.uri, filename: part.name }, supportedMimes)</span></span>
+<span id="L210"><span class="lineNum">     210</span>              : </span>
+<span id="L211"><span class="lineNum">     211</span> <span class="tlaGNC">          62 : export const trimBaseUrl = (value: string) =&gt; value.replace(/\/+$/, &quot;&quot;)</span></span>
+<span id="L212"><span class="lineNum">     212</span>              : </span>
+<span id="L213"><span class="lineNum">     213</span> <span class="tlaUNC">           0 : export const toolResultText = (part: ToolResultPart) =&gt; {</span></span>
+<span id="L214"><span class="lineNum">     214</span> <span class="tlaUNC">           0 :   if (part.result.type === &quot;text&quot;) return String(part.result.value)</span></span>
+<span id="L215"><span class="lineNum">     215</span> <span class="tlaUNC">           0 :   if (part.result.type === &quot;error&quot;) {</span></span>
+<span id="L216"><span class="lineNum">     216</span> <span class="tlaUNC">           0 :     const value = part.result.value</span></span>
+<span id="L217"><span class="lineNum">     217</span> <span class="tlaUNC">           0 :     const prototype =</span></span>
+<span id="L218"><span class="lineNum">     218</span> <span class="tlaUNC">           0 :       typeof value === &quot;object&quot; &amp;&amp; value !== null &amp;&amp; !Array.isArray(value) &amp;&amp; Object.getPrototypeOf(value)</span></span>
+<span id="L219"><span class="lineNum">     219</span> <span class="tlaUNC">           0 :     const structured = Array.isArray(value) || prototype === Object.prototype || prototype === null</span></span>
+<span id="L220"><span class="lineNum">     220</span> <span class="tlaUNC">           0 :     return structured &amp;&amp; isJson(value) ? encodeJson(value) : String(value)</span></span>
+<span id="L221"><span class="lineNum">     221</span> <span class="tlaUNC">           0 :   }</span></span>
+<span id="L222"><span class="lineNum">     222</span> <span class="tlaGNC">           2 :   return encodeJson(part.result.value)</span></span>
+<span id="L223"><span class="lineNum">     223</span>              : }</span>
+<span id="L224"><span class="lineNum">     224</span>              : </span>
+<span id="L225"><span class="lineNum">     225</span> <span class="tlaUNC">           0 : export const errorText = (error: unknown) =&gt; {</span></span>
+<span id="L226"><span class="lineNum">     226</span> <span class="tlaUNC">           0 :   if (error instanceof Error) return error.message</span></span>
+<span id="L227"><span class="lineNum">     227</span> <span class="tlaUNC">           0 :   if (typeof error === &quot;string&quot;) return error</span></span>
+<span id="L228"><span class="lineNum">     228</span> <span class="tlaUNC">           0 :   if (typeof error === &quot;number&quot; || typeof error === &quot;boolean&quot; || typeof error === &quot;bigint&quot;) return String(error)</span></span>
+<span id="L229"><span class="lineNum">     229</span> <span class="tlaUNC">           0 :   if (error === null) return &quot;null&quot;</span></span>
+<span id="L230"><span class="lineNum">     230</span> <span class="tlaUNC">           0 :   if (error === undefined) return &quot;undefined&quot;</span></span>
+<span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">           2 :   return &quot;Unknown stream error&quot;</span></span>
+<span id="L232"><span class="lineNum">     232</span>              : }</span>
+<span id="L233"><span class="lineNum">     233</span>              : </span>
+<span id="L234"><span class="lineNum">     234</span>              : /**</span>
+<span id="L235"><span class="lineNum">     235</span>              :  * `framing` step for Server-Sent Events. Decodes UTF-8, runs the SSE channel</span>
+<span id="L236"><span class="lineNum">     236</span>              :  * decoder, and drops empty / `[DONE]` keep-alive events so the downstream</span>
+<span id="L237"><span class="lineNum">     237</span>              :  * `decodeChunk` sees one JSON string per element. The SSE channel emits a</span>
+<span id="L238"><span class="lineNum">     238</span>              :  * `Retry` control event on its error channel; we drop it here (we don't</span>
+<span id="L239"><span class="lineNum">     239</span>              :  * implement client-driven retries) so the public error channel stays</span>
+<span id="L240"><span class="lineNum">     240</span>              :  * `LLMError`.</span>
+<span id="L241"><span class="lineNum">     241</span>              :  */</span>
+<span id="L242"><span class="lineNum">     242</span> <span class="tlaGNC">          35 : export const sseFraming = (bytes: Stream.Stream&lt;Uint8Array, LLMError&gt;): Stream.Stream&lt;string, LLMError&gt; =&gt;</span></span>
+<span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">          11 :   bytes.pipe(</span></span>
+<span id="L244"><span class="lineNum">     244</span> <span class="tlaGNC">          21 :     Stream.decodeText(),</span></span>
+<span id="L245"><span class="lineNum">     245</span> <span class="tlaGNC">          41 :     Stream.pipeThroughChannel(Sse.decode()),</span></span>
+<span id="L246"><span class="lineNum">     246</span> <span class="tlaGNC">          27 :     Stream.catchTag(&quot;Retry&quot;, () =&gt; Stream.empty),</span></span>
+<span id="L247"><span class="lineNum">     247</span> <span class="tlaGNC">          74 :     Stream.filter((event) =&gt; event.data.length &gt; 0 &amp;&amp; event.data !== &quot;[DONE]&quot;),</span></span>
+<span id="L248"><span class="lineNum">     248</span> <span class="tlaGNC">          31 :     Stream.map((event) =&gt; event.data),</span></span>
+<span id="L249"><span class="lineNum">     249</span> <span class="tlaGNC">           2 :   )</span></span>
+<span id="L250"><span class="lineNum">     250</span>              : </span>
+<span id="L251"><span class="lineNum">     251</span>              : /**</span>
+<span id="L252"><span class="lineNum">     252</span>              :  * Canonical invalid-request constructor. Lift one-line `const invalid =</span>
+<span id="L253"><span class="lineNum">     253</span>              :  * (message) =&gt; invalidRequest(message)` aliases out of every</span>
+<span id="L254"><span class="lineNum">     254</span>              :  * route so the error constructor lives in one place. If we ever extend</span>
+<span id="L255"><span class="lineNum">     255</span>              :  * `InvalidRequestReason` with route context or trace metadata, the change</span>
+<span id="L256"><span class="lineNum">     256</span>              :  * lands here.</span>
+<span id="L257"><span class="lineNum">     257</span>              :  */</span>
+<span id="L258"><span class="lineNum">     258</span> <span class="tlaUNC">           0 : export const invalidRequest = (message: string) =&gt;</span></span>
+<span id="L259"><span class="lineNum">     259</span> <span class="tlaUNC">           0 :   new LLMError({</span></span>
+<span id="L260"><span class="lineNum">     260</span> <span class="tlaUNC">           0 :     module: &quot;ProviderShared&quot;,</span></span>
+<span id="L261"><span class="lineNum">     261</span> <span class="tlaUNC">           0 :     method: &quot;request&quot;,</span></span>
+<span id="L262"><span class="lineNum">     262</span>              :     reason: new InvalidRequestReason({ message }),</span>
+<span id="L263"><span class="lineNum">     263</span> <span class="tlaGNC">           2 :   })</span></span>
+<span id="L264"><span class="lineNum">     264</span>              : </span>
+<span id="L265"><span class="lineNum">     265</span> <span class="tlaUNC">           0 : export const matchToolChoice = &lt;Auto, None, Required, Tool&gt;(</span></span>
+<span id="L266"><span class="lineNum">     266</span> <span class="tlaUNC">           0 :   route: string,</span></span>
+<span id="L267"><span class="lineNum">     267</span> <span class="tlaUNC">           0 :   toolChoice: NonNullable&lt;LLMRequest[&quot;toolChoice&quot;]&gt;,</span></span>
+<span id="L268"><span class="lineNum">     268</span> <span class="tlaUNC">           0 :   cases: {</span></span>
+<span id="L269"><span class="lineNum">     269</span> <span class="tlaUNC">           0 :     readonly auto: () =&gt; Auto</span></span>
+<span id="L270"><span class="lineNum">     270</span> <span class="tlaUNC">           0 :     readonly none: () =&gt; None</span></span>
+<span id="L271"><span class="lineNum">     271</span> <span class="tlaUNC">           0 :     readonly required: () =&gt; Required</span></span>
+<span id="L272"><span class="lineNum">     272</span> <span class="tlaUNC">           0 :     readonly tool: (name: string) =&gt; Tool</span></span>
+<span id="L273"><span class="lineNum">     273</span> <span class="tlaUNC">           0 :   },</span></span>
+<span id="L274"><span class="lineNum">     274</span> <span class="tlaUNC">           0 : ) =&gt;</span></span>
+<span id="L275"><span class="lineNum">     275</span> <span class="tlaUNC">           0 :   Effect.gen(function* () {</span></span>
+<span id="L276"><span class="lineNum">     276</span> <span class="tlaUNC">           0 :     if (toolChoice.type === &quot;auto&quot;) return cases.auto()</span></span>
+<span id="L277"><span class="lineNum">     277</span> <span class="tlaUNC">           0 :     if (toolChoice.type === &quot;none&quot;) return cases.none()</span></span>
+<span id="L278"><span class="lineNum">     278</span> <span class="tlaUNC">           0 :     if (toolChoice.type === &quot;required&quot;) return cases.required()</span></span>
+<span id="L279"><span class="lineNum">     279</span> <span class="tlaUNC">           0 :     if (!toolChoice.name) return yield* invalidRequest(`${route} tool choice requires a tool name`)</span></span>
+<span id="L280"><span class="lineNum">     280</span>              :     return cases.tool(toolChoice.name)</span>
+<span id="L281"><span class="lineNum">     281</span> <span class="tlaGNC">           2 :   })</span></span>
+<span id="L282"><span class="lineNum">     282</span>              : </span>
+<span id="L283"><span class="lineNum">     283</span>              : type ContentType = ContentPart[&quot;type&quot;]</span>
+<span id="L284"><span class="lineNum">     284</span>              : </span>
+<span id="L285"><span class="lineNum">     285</span> <span class="tlaUNC">           0 : const formatContentTypes = (types: ReadonlyArray&lt;ContentType&gt;) =&gt; {</span></span>
+<span id="L286"><span class="lineNum">     286</span> <span class="tlaUNC">           0 :   if (types.length &lt;= 1) return types[0] ?? &quot;&quot;</span></span>
+<span id="L287"><span class="lineNum">     287</span> <span class="tlaUNC">           0 :   if (types.length === 2) return `${types[0]} and ${types[1]}`</span></span>
+<span id="L288"><span class="lineNum">     288</span> <span class="tlaGNC">           2 :   return `${types.slice(0, -1).join(&quot;, &quot;)}, and ${types.at(-1)}`</span></span>
+<span id="L289"><span class="lineNum">     289</span>              : }</span>
+<span id="L290"><span class="lineNum">     290</span>              : </span>
+<span id="L291"><span class="lineNum">     291</span> <span class="tlaUNC">           0 : export const supportsContent = &lt;const Type extends ContentType&gt;(</span></span>
+<span id="L292"><span class="lineNum">     292</span> <span class="tlaUNC">           0 :   part: ContentPart,</span></span>
+<span id="L293"><span class="lineNum">     293</span> <span class="tlaUNC">           0 :   types: ReadonlyArray&lt;Type&gt;,</span></span>
+<span id="L294"><span class="lineNum">     294</span> <span class="tlaGNC">           2 : ): part is Extract&lt;ContentPart, { readonly type: Type }&gt; =&gt; (types as ReadonlyArray&lt;ContentType&gt;).includes(part.type)</span></span>
+<span id="L295"><span class="lineNum">     295</span>              : </span>
+<span id="L296"><span class="lineNum">     296</span> <span class="tlaUNC">           0 : export const unsupportedContent = (</span></span>
+<span id="L297"><span class="lineNum">     297</span> <span class="tlaUNC">           0 :   route: string,</span></span>
+<span id="L298"><span class="lineNum">     298</span> <span class="tlaUNC">           0 :   role: LLMRequest[&quot;messages&quot;][number][&quot;role&quot;],</span></span>
+<span id="L299"><span class="lineNum">     299</span> <span class="tlaUNC">           0 :   types: ReadonlyArray&lt;ContentType&gt;,</span></span>
+<span id="L300"><span class="lineNum">     300</span> <span class="tlaGNC">           2 : ) =&gt; invalidRequest(`${route} ${role} messages only support ${formatContentTypes(types)} content for now`)</span></span>
+<span id="L301"><span class="lineNum">     301</span>              : </span>
+<span id="L302"><span class="lineNum">     302</span>              : /**</span>
+<span id="L303"><span class="lineNum">     303</span>              :  * Build a `validate` step from a Schema decoder. Replaces the per-route</span>
+<span id="L304"><span class="lineNum">     304</span>              :  * lambda body `(payload) =&gt; decode(payload).pipe(Effect.mapError((e) =&gt;</span>
+<span id="L305"><span class="lineNum">     305</span>              :  * invalid(e.message)))`. Any decode error is translated into</span>
+<span id="L306"><span class="lineNum">     306</span>              :  * `LLMError` carrying the original parse-error message.</span>
+<span id="L307"><span class="lineNum">     307</span>              :  */</span>
+<span id="L308"><span class="lineNum">     308</span> <span class="tlaGNC">          26 : export const validateWith =</span></span>
+<span id="L309"><span class="lineNum">     309</span> <span class="tlaGNC">          11 :   &lt;A, I, E extends { readonly message: string }&gt;(decode: (input: I) =&gt; Effect.Effect&lt;A, E&gt;) =&gt;</span></span>
+<span id="L310"><span class="lineNum">     310</span> <span class="tlaGNC">          13 :   (payload: I) =&gt;</span></span>
+<span id="L311"><span class="lineNum">     311</span> <span class="tlaGNC">          40 :     decode(payload).pipe(Effect.mapError((error) =&gt; invalidRequest(error.message)))</span></span>
+<span id="L312"><span class="lineNum">     312</span>              : </span>
+<span id="L313"><span class="lineNum">     313</span>              : /**</span>
+<span id="L314"><span class="lineNum">     314</span>              :  * Build an HTTP POST with a JSON body. Sets `content-type: application/json`</span>
+<span id="L315"><span class="lineNum">     315</span>              :  * automatically after caller-supplied headers so routes cannot accidentally</span>
+<span id="L316"><span class="lineNum">     316</span>              :  * send JSON with a stale content type. The body is passed pre-encoded so</span>
+<span id="L317"><span class="lineNum">     317</span>              :  * routes can choose between</span>
+<span id="L318"><span class="lineNum">     318</span>              :  * `Schema.encodeSync(payload)` and `ProviderShared.encodeJson(payload)`.</span>
+<span id="L319"><span class="lineNum">     319</span>              :  */</span>
+<span id="L320"><span class="lineNum">     320</span> <span class="tlaGNC">          33 : export const jsonPost = (input: { readonly url: string; readonly body: string; readonly headers?: Headers.Input }) =&gt;</span></span>
+<span id="L321"><span class="lineNum">     321</span> <span class="tlaGNC">          39 :   HttpClientRequest.post(input.url).pipe(</span></span>
+<span id="L322"><span class="lineNum">     322</span> <span class="tlaGNC">         113 :     HttpClientRequest.setHeaders(Headers.set(Headers.fromInput(input.headers), &quot;content-type&quot;, &quot;application/json&quot;)),</span></span>
+<span id="L323"><span class="lineNum">     323</span> <span class="tlaGNC">          58 :     HttpClientRequest.bodyText(input.body, &quot;application/json&quot;),</span></span>
+<span id="L324"><span class="lineNum">     324</span> <span class="tlaGNC">           2 :   )</span></span>
+<span id="L325"><span class="lineNum">     325</span>              : </span>
+<span id="L326"><span class="lineNum">     326</span> <span class="tlaGNC">          42 : export * as ProviderShared from &quot;./shared&quot;</span></span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>
