@@ -115,8 +115,21 @@ export const make = Effect.gen(function* () {
     return path.resolve(opts.cwd)
   })
 
-  const env = (opts: ChildProcess.CommandOptions) =>
-    opts.extendEnv ? { ...globalThis.process.env, ...opts.env } : opts.env
+  const env = (opts: ChildProcess.CommandOptions) => {
+  if (opts.extendEnv) {
+    return { ...globalThis.process.env, ...opts.env }
+  }
+  // When not extending parent env, still preserve critical vars for process execution
+  const criticalVars = ['PATH', 'HOME', 'TEMP', 'TMP', 'TMPDIR']
+  const preserved: Record<string, string> = {}
+  for (const key of criticalVars) {
+    const value = globalThis.process.env[key]
+    if (value !== undefined) {
+      preserved[key] = value
+    }
+  }
+  return { ...preserved, ...opts.env }
+}
 
   const input = (x: ChildProcess.CommandInput | undefined): NodeChildProcess.IOType | undefined =>
     Stream.isStream(x) ? "pipe" : x
