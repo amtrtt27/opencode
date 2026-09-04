@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - lcov-clean.info - ../schema/src/schema.ts</title>
+  <title>LCOV - lcov.info - ../schema/src/schema.ts</title>
   <link rel="stylesheet" type="text/css" href="../../../gcov.css">
 </head>
 
@@ -28,16 +28,16 @@
           </tr>
           <tr>
             <td class="headerItem">Test:</td>
-            <td class="headerValue">lcov-clean.info</td>
+            <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntryHi">90.9&nbsp;%</td>
             <td class="headerCovTableEntry">22</td>
-            <td class="headerCovTableEntry">22</td>
+            <td class="headerCovTableEntry">20</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-08-27 14:29:40</td>
+            <td class="headerValue">2026-09-04 18:06:08</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -75,19 +75,19 @@
 <span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">          32 :   Schema.optionalKey(schema).pipe(</span></span>
 <span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">          59 :     Schema.decodeTo(Schema.optional(Schema.toType(schema)), {</span></span>
 <span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">          54 :       decode: SchemaGetter.passthrough({ strict: false }),</span></span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          84 :       encode: SchemaGetter.transformOptional(Option.filter((value) =&gt; value !== undefined)),</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          55 :       encode: SchemaGetter.transformOptional(Option.filter((value) =&gt; value !== undefined)),</span></span>
 <span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           1 :     }),</span></span>
 <span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">           2 :   )</span></span>
 <span id="L19"><span class="lineNum">      19</span>              : </span>
 <span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          21 : export const statics =</span></span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          12 :   &lt;S extends object, M extends Record&lt;string, unknown&gt;&gt;(methods: (schema: S) =&gt; M) =&gt;</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          12 :   (schema: S): S &amp; M =&gt;</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          40 :     Object.assign(schema, methods(schema))</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaUNC">           0 :   &lt;S extends object, M extends Record&lt;string, unknown&gt;&gt;(methods: (schema: S) =&gt; M) =&gt;</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaUNC">           0 :   (schema: S): S &amp; M =&gt;</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           2 :     Object.assign(schema, methods(schema))</span></span>
 <span id="L24"><span class="lineNum">      24</span>              : </span>
 <span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          55 : export const DateTimeUtcFromMillis = Schema.Finite.pipe(</span></span>
 <span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          39 :   Schema.decodeTo(Schema.DateTimeUtc, {</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          70 :     decode: SchemaGetter.transform((value) =&gt; DateTime.makeUnsafe(value)),</span></span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          71 :     encode: SchemaGetter.transform((value) =&gt; DateTime.toEpochMillis(value)),</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          34 :     decode: SchemaGetter.transform((value) =&gt; DateTime.makeUnsafe(value)),</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          32 :     encode: SchemaGetter.transform((value) =&gt; DateTime.toEpochMillis(value)),</span></span>
 <span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           1 :   }),</span></span>
 <span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           2 : )</span></span>
         </pre>

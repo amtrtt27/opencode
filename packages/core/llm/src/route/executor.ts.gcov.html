@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - lcov-clean.info - ../llm/src/route/executor.ts</title>
+  <title>LCOV - lcov.info - ../llm/src/route/executor.ts</title>
   <link rel="stylesheet" type="text/css" href="../../../../gcov.css">
 </head>
 
@@ -28,16 +28,16 @@
           </tr>
           <tr>
             <td class="headerItem">Test:</td>
-            <td class="headerValue">lcov-clean.info</td>
+            <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">21.9&nbsp;%</td>
-            <td class="headerCovTableEntry">301</td>
-            <td class="headerCovTableEntry">66</td>
+            <td class="headerCovTableEntryLo">15.3&nbsp;%</td>
+            <td class="headerCovTableEntry">300</td>
+            <td class="headerCovTableEntry">46</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-08-27 14:29:40</td>
+            <td class="headerValue">2026-09-04 18:06:08</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -337,10 +337,10 @@
 <span id="L275"><span class="lineNum">     275</span>              : }</span>
 <span id="L276"><span class="lineNum">     276</span>              : </span>
 <span id="L277"><span class="lineNum">     277</span> <span class="tlaGNC">          18 : const statusError =</span></span>
-<span id="L278"><span class="lineNum">     278</span> <span class="tlaGNC">          27 :   (request: HttpClientRequest.HttpClientRequest, redactedNames: ReadonlyArray&lt;string | RegExp&gt;) =&gt;</span></span>
-<span id="L279"><span class="lineNum">     279</span> <span class="tlaGNC">          14 :   (response: HttpClientResponse.HttpClientResponse) =&gt;</span></span>
-<span id="L280"><span class="lineNum">     280</span> <span class="tlaGNC">          15 :     Effect.gen(function* () {</span></span>
-<span id="L281"><span class="lineNum">     281</span> <span class="tlaGNC">          44 :       if (response.status &lt; 400) return response</span></span>
+<span id="L278"><span class="lineNum">     278</span> <span class="tlaUNC">           0 :   (request: HttpClientRequest.HttpClientRequest, redactedNames: ReadonlyArray&lt;string | RegExp&gt;) =&gt;</span></span>
+<span id="L279"><span class="lineNum">     279</span> <span class="tlaUNC">           0 :   (response: HttpClientResponse.HttpClientResponse) =&gt;</span></span>
+<span id="L280"><span class="lineNum">     280</span> <span class="tlaUNC">           0 :     Effect.gen(function* () {</span></span>
+<span id="L281"><span class="lineNum">     281</span> <span class="tlaUNC">           0 :       if (response.status &lt; 400) return response</span></span>
 <span id="L282"><span class="lineNum">     282</span> <span class="tlaUNC">           0 :       const body = yield* response.text.pipe(Effect.catch(() =&gt; Effect.void))</span></span>
 <span id="L283"><span class="lineNum">     283</span> <span class="tlaUNC">           0 :       const headers = normalizedHeaders(response.headers)</span></span>
 <span id="L284"><span class="lineNum">     284</span> <span class="tlaUNC">           0 :       const retryAfter = retryAfterMs(headers)</span></span>
@@ -363,8 +363,8 @@
 <span id="L301"><span class="lineNum">     301</span> <span class="tlaUNC">           0 :             rateLimit,</span></span>
 <span id="L302"><span class="lineNum">     302</span> <span class="tlaUNC">           0 :           }),</span></span>
 <span id="L303"><span class="lineNum">     303</span> <span class="tlaUNC">           0 :         }),</span></span>
-<span id="L304"><span class="lineNum">     304</span> <span class="tlaUNC">           0 :       })</span></span>
-<span id="L305"><span class="lineNum">     305</span> <span class="tlaGNC">           3 :     })</span></span>
+<span id="L304"><span class="lineNum">     304</span>              :       })</span>
+<span id="L305"><span class="lineNum">     305</span> <span class="tlaGNC">           2 :     })</span></span>
 <span id="L306"><span class="lineNum">     306</span>              : </span>
 <span id="L307"><span class="lineNum">     307</span> <span class="tlaUNC">           0 : const toHttpError = (redactedNames: ReadonlyArray&lt;string | RegExp&gt;) =&gt; (error: unknown) =&gt; {</span></span>
 <span id="L308"><span class="lineNum">     308</span> <span class="tlaUNC">           0 :   const transportError = (input: {</span></span>
@@ -412,11 +412,11 @@
 <span id="L350"><span class="lineNum">     350</span> <span class="tlaGNC">           2 :   ).pipe(Effect.map((delay) =&gt; Math.round(delay)))</span></span>
 <span id="L351"><span class="lineNum">     351</span>              : }</span>
 <span id="L352"><span class="lineNum">     352</span>              : </span>
-<span id="L353"><span class="lineNum">     353</span> <span class="tlaGNC">          27 : const retryStatusFailures = &lt;A, R&gt;(</span></span>
-<span id="L354"><span class="lineNum">     354</span> <span class="tlaGNC">           8 :   effect: Effect.Effect&lt;A, LLMError, R&gt;,</span></span>
-<span id="L355"><span class="lineNum">     355</span> <span class="tlaGNC">          23 :   retries = MAX_RETRIES,</span></span>
-<span id="L356"><span class="lineNum">     356</span> <span class="tlaGNC">          16 :   attempt = 0,</span></span>
-<span id="L357"><span class="lineNum">     357</span>              : ): Effect.Effect&lt;A, LLMError, R&gt; =&gt;</span>
+<span id="L353"><span class="lineNum">     353</span> <span class="tlaUNC">           0 : const retryStatusFailures = &lt;A, R&gt;(</span></span>
+<span id="L354"><span class="lineNum">     354</span> <span class="tlaUNC">           0 :   effect: Effect.Effect&lt;A, LLMError, R&gt;,</span></span>
+<span id="L355"><span class="lineNum">     355</span> <span class="tlaUNC">           0 :   retries = MAX_RETRIES,</span></span>
+<span id="L356"><span class="lineNum">     356</span> <span class="tlaUNC">           0 :   attempt = 0,</span></span>
+<span id="L357"><span class="lineNum">     357</span> <span class="tlaUNC">           0 : ): Effect.Effect&lt;A, LLMError, R&gt; =&gt;</span></span>
 <span id="L358"><span class="lineNum">     358</span> <span class="tlaUNC">           0 :   Effect.catchTag(effect, &quot;LLM.Error&quot;, (error): Effect.Effect&lt;A, LLMError, R&gt; =&gt; {</span></span>
 <span id="L359"><span class="lineNum">     359</span> <span class="tlaUNC">           0 :     if (!error.retryable || retries &lt;= 0) return Effect.fail(error)</span></span>
 <span id="L360"><span class="lineNum">     360</span> <span class="tlaUNC">           0 :     return retryDelay(error, attempt).pipe(</span></span>
@@ -427,18 +427,18 @@
 <span id="L365"><span class="lineNum">     365</span>              : </span>
 <span id="L366"><span class="lineNum">     366</span> <span class="tlaGNC">          33 : export const layer: Layer.Layer&lt;Service, never, HttpClient.HttpClient&gt; = Layer.effect(</span></span>
 <span id="L367"><span class="lineNum">     367</span> <span class="tlaGNC">           9 :   Service,</span></span>
-<span id="L368"><span class="lineNum">     368</span> <span class="tlaGNC">          15 :   Effect.gen(function* () {</span></span>
-<span id="L369"><span class="lineNum">     369</span> <span class="tlaGNC">          44 :     const http = yield* HttpClient.HttpClient</span></span>
-<span id="L370"><span class="lineNum">     370</span> <span class="tlaGNC">          32 :     const executeOnce = (request: HttpClientRequest.HttpClientRequest) =&gt;</span></span>
-<span id="L371"><span class="lineNum">     371</span> <span class="tlaGNC">          17 :       Effect.gen(function* () {</span></span>
-<span id="L372"><span class="lineNum">     372</span> <span class="tlaGNC">          62 :         const redactedNames = yield* Headers.CurrentRedactedNames</span></span>
-<span id="L373"><span class="lineNum">     373</span> <span class="tlaGNC">          19 :         return yield* http</span></span>
-<span id="L374"><span class="lineNum">     374</span> <span class="tlaGNC">          17 :           .execute(request)</span></span>
-<span id="L375"><span class="lineNum">     375</span> <span class="tlaGNC">         103 :           .pipe(Effect.mapError(toHttpError(redactedNames)), Effect.flatMap(statusError(request, redactedNames)))</span></span>
-<span id="L376"><span class="lineNum">     376</span> <span class="tlaGNC">           3 :       })</span></span>
-<span id="L377"><span class="lineNum">     377</span> <span class="tlaGNC">          23 :     return Service.of({</span></span>
-<span id="L378"><span class="lineNum">     378</span> <span class="tlaGNC">          63 :       execute: (request) =&gt; retryStatusFailures(executeOnce(request)),</span></span>
-<span id="L379"><span class="lineNum">     379</span> <span class="tlaGNC">           2 :     })</span></span>
+<span id="L368"><span class="lineNum">     368</span> <span class="tlaUNC">           0 :   Effect.gen(function* () {</span></span>
+<span id="L369"><span class="lineNum">     369</span> <span class="tlaUNC">           0 :     const http = yield* HttpClient.HttpClient</span></span>
+<span id="L370"><span class="lineNum">     370</span> <span class="tlaUNC">           0 :     const executeOnce = (request: HttpClientRequest.HttpClientRequest) =&gt;</span></span>
+<span id="L371"><span class="lineNum">     371</span> <span class="tlaUNC">           0 :       Effect.gen(function* () {</span></span>
+<span id="L372"><span class="lineNum">     372</span> <span class="tlaUNC">           0 :         const redactedNames = yield* Headers.CurrentRedactedNames</span></span>
+<span id="L373"><span class="lineNum">     373</span> <span class="tlaUNC">           0 :         return yield* http</span></span>
+<span id="L374"><span class="lineNum">     374</span> <span class="tlaUNC">           0 :           .execute(request)</span></span>
+<span id="L375"><span class="lineNum">     375</span> <span class="tlaUNC">           0 :           .pipe(Effect.mapError(toHttpError(redactedNames)), Effect.flatMap(statusError(request, redactedNames)))</span></span>
+<span id="L376"><span class="lineNum">     376</span> <span class="tlaUNC">           0 :       })</span></span>
+<span id="L377"><span class="lineNum">     377</span> <span class="tlaUNC">           0 :     return Service.of({</span></span>
+<span id="L378"><span class="lineNum">     378</span> <span class="tlaUNC">           0 :       execute: (request) =&gt; retryStatusFailures(executeOnce(request)),</span></span>
+<span id="L379"><span class="lineNum">     379</span>              :     })</span>
 <span id="L380"><span class="lineNum">     380</span> <span class="tlaGNC">           1 :   }),</span></span>
 <span id="L381"><span class="lineNum">     381</span> <span class="tlaGNC">           3 : )</span></span>
 <span id="L382"><span class="lineNum">     382</span>              : </span>

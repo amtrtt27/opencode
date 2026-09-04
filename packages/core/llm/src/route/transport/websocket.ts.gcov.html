@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - lcov-clean.info - ../llm/src/route/transport/websocket.ts</title>
+  <title>LCOV - lcov.info - ../llm/src/route/transport/websocket.ts</title>
   <link rel="stylesheet" type="text/css" href="../../../../../gcov.css">
 </head>
 
@@ -28,16 +28,16 @@
           </tr>
           <tr>
             <td class="headerItem">Test:</td>
-            <td class="headerValue">lcov-clean.info</td>
+            <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">15.5&nbsp;%</td>
+            <td class="headerCovTableEntryLo">13.2&nbsp;%</td>
             <td class="headerCovTableEntry">219</td>
-            <td class="headerCovTableEntry">34</td>
+            <td class="headerCovTableEntry">29</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-08-27 14:29:40</td>
+            <td class="headerValue">2026-09-04 18:06:08</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -285,9 +285,9 @@
 <span id="L223"><span class="lineNum">     223</span>              :   readonly with: (patch: JsonPatch&lt;Body, Message&gt;) =&gt; JsonTransport&lt;Body, Message&gt;</span>
 <span id="L224"><span class="lineNum">     224</span>              : }</span>
 <span id="L225"><span class="lineNum">     225</span>              : </span>
-<span id="L226"><span class="lineNum">     226</span> <span class="tlaGNC">          33 : export const json = &lt;Body, Message&gt;(input: JsonInput&lt;Body, Message&gt;): JsonTransport&lt;Body, Message&gt; =&gt; ({</span></span>
-<span id="L227"><span class="lineNum">     227</span> <span class="tlaGNC">          23 :   id: &quot;websocket-json&quot;,</span></span>
-<span id="L228"><span class="lineNum">     228</span> <span class="tlaGNC">           8 :   with: (patch) =&gt; json({ ...input, ...patch }),</span></span>
+<span id="L226"><span class="lineNum">     226</span> <span class="tlaUNC">           0 : export const json = &lt;Body, Message&gt;(input: JsonInput&lt;Body, Message&gt;): JsonTransport&lt;Body, Message&gt; =&gt; ({</span></span>
+<span id="L227"><span class="lineNum">     227</span> <span class="tlaUNC">           0 :   id: &quot;websocket-json&quot;,</span></span>
+<span id="L228"><span class="lineNum">     228</span> <span class="tlaUNC">           0 :   with: (patch) =&gt; json({ ...input, ...patch }),</span></span>
 <span id="L229"><span class="lineNum">     229</span> <span class="tlaUNC">           0 :   prepare: (prepareInput) =&gt;</span></span>
 <span id="L230"><span class="lineNum">     230</span> <span class="tlaUNC">           0 :     Effect.gen(function* () {</span></span>
 <span id="L231"><span class="lineNum">     231</span> <span class="tlaUNC">           0 :       const parts = yield* HttpTransport.jsonRequestParts({</span></span>
@@ -297,8 +297,8 @@
 <span id="L235"><span class="lineNum">     235</span> <span class="tlaUNC">           0 :         url: yield* webSocketUrl(parts.url),</span></span>
 <span id="L236"><span class="lineNum">     236</span> <span class="tlaUNC">           0 :         headers: parts.headers,</span></span>
 <span id="L237"><span class="lineNum">     237</span> <span class="tlaUNC">           0 :         message: input.encodeMessage(yield* input.toMessage(parts.jsonBody)),</span></span>
-<span id="L238"><span class="lineNum">     238</span>              :       }</span>
-<span id="L239"><span class="lineNum">     239</span> <span class="tlaGNC">           3 :     }),</span></span>
+<span id="L238"><span class="lineNum">     238</span> <span class="tlaUNC">           0 :       }</span></span>
+<span id="L239"><span class="lineNum">     239</span> <span class="tlaUNC">           0 :     }),</span></span>
 <span id="L240"><span class="lineNum">     240</span> <span class="tlaUNC">           0 :   frames: (prepared, _request, runtime) =&gt; {</span></span>
 <span id="L241"><span class="lineNum">     241</span> <span class="tlaUNC">           0 :     const webSocket = runtime.webSocket</span></span>
 <span id="L242"><span class="lineNum">     242</span> <span class="tlaUNC">           0 :     if (!webSocket) {</span></span>
@@ -319,7 +319,7 @@
 <span id="L257"><span class="lineNum">     257</span> <span class="tlaUNC">           0 :         yield* connection.sendText(prepared.message)</span></span>
 <span id="L258"><span class="lineNum">     258</span> <span class="tlaUNC">           0 :         return connection.messages.pipe(Stream.map((message) =&gt; messageText(message, decoder)))</span></span>
 <span id="L259"><span class="lineNum">     259</span> <span class="tlaUNC">           0 :       }),</span></span>
-<span id="L260"><span class="lineNum">     260</span> <span class="tlaGNC">           1 :     )</span></span>
+<span id="L260"><span class="lineNum">     260</span>              :     )</span>
 <span id="L261"><span class="lineNum">     261</span>              :   },</span>
 <span id="L262"><span class="lineNum">     262</span> <span class="tlaGNC">           2 : })</span></span>
 <span id="L263"><span class="lineNum">     263</span>              : </span>

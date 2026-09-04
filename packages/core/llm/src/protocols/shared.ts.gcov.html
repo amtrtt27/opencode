@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - lcov-clean.info - ../llm/src/protocols/shared.ts</title>
+  <title>LCOV - lcov.info - ../llm/src/protocols/shared.ts</title>
   <link rel="stylesheet" type="text/css" href="../../../../gcov.css">
 </head>
 
@@ -28,16 +28,16 @@
           </tr>
           <tr>
             <td class="headerItem">Test:</td>
-            <td class="headerValue">lcov-clean.info</td>
+            <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">40.1&nbsp;%</td>
-            <td class="headerCovTableEntry">172</td>
-            <td class="headerCovTableEntry">69</td>
+            <td class="headerCovTableEntryLo">27.6&nbsp;%</td>
+            <td class="headerCovTableEntry">170</td>
+            <td class="headerCovTableEntry">47</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-08-27 14:29:40</td>
+            <td class="headerValue">2026-09-04 18:06:08</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -83,8 +83,8 @@
 <span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          50 : export const encodeJson = Schema.encodeSync(Json)</span></span>
 <span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          38 : const isJson = Schema.is(Schema.Json)</span></span>
 <span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          71 : export const JsonObject = Schema.Record(Schema.String, Schema.Unknown)</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          77 : export const optionalArray = &lt;const S extends Schema.Top&gt;(schema: S) =&gt; Schema.optional(Schema.Array(schema))</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          77 : export const optionalNull = &lt;const S extends Schema.Top&gt;(schema: S) =&gt; Schema.optional(Schema.NullOr(schema))</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          29 : export const optionalArray = &lt;const S extends Schema.Top&gt;(schema: S) =&gt; Schema.optional(Schema.Array(schema))</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          28 : export const optionalNull = &lt;const S extends Schema.Top&gt;(schema: S) =&gt; Schema.optional(Schema.NullOr(schema))</span></span>
 <span id="L26"><span class="lineNum">      26</span>              : </span>
 <span id="L27"><span class="lineNum">      27</span>              : /**</span>
 <span id="L28"><span class="lineNum">      28</span>              :  * Streaming tool-call accumulator. Adapters that build a tool call across</span>
@@ -110,12 +110,12 @@
 <span id="L48"><span class="lineNum">      48</span>              :  * Anthropic-style providers (which don't surface a total) still get a</span>
 <span id="L49"><span class="lineNum">      49</span>              :  * sensible aggregate on the input + output axes.</span>
 <span id="L50"><span class="lineNum">      50</span>              :  */</span>
-<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">          26 : export const totalTokens = (</span></span>
-<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          13 :   inputTokens: number | undefined,</span></span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          14 :   outputTokens: number | undefined,</span></span>
-<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          10 :   total: number | undefined,</span></span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">           3 : ) =&gt; {</span></span>
-<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          39 :   if (total !== undefined) return total</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaUNC">           0 : export const totalTokens = (</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaUNC">           0 :   inputTokens: number | undefined,</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaUNC">           0 :   outputTokens: number | undefined,</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaUNC">           0 :   total: number | undefined,</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaUNC">           0 : ) =&gt; {</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaUNC">           0 :   if (total !== undefined) return total</span></span>
 <span id="L57"><span class="lineNum">      57</span> <span class="tlaUNC">           0 :   if (inputTokens === undefined &amp;&amp; outputTokens === undefined) return undefined</span></span>
 <span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">           2 :   return (inputTokens ?? 0) + (outputTokens ?? 0)</span></span>
 <span id="L59"><span class="lineNum">      59</span>              : }</span>
@@ -131,10 +131,10 @@
 <span id="L69"><span class="lineNum">      69</span>              :  * counts). If `subtrahend` is `undefined`, returns `total` unchanged. The</span>
 <span id="L70"><span class="lineNum">      70</span>              :  * provider-native breakdown stays available on `Usage.native` for debugging.</span>
 <span id="L71"><span class="lineNum">      71</span>              :  */</span>
-<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">          54 : export const subtractTokens = (total: number | undefined, subtrahend: number | undefined): number | undefined =&gt; {</span></span>
-<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">          29 :   if (total === undefined) return undefined</span></span>
-<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">          34 :   if (subtrahend === undefined) return total</span></span>
-<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">          40 :   return Math.max(0, total - subtrahend)</span></span>
+<span id="L72"><span class="lineNum">      72</span> <span class="tlaUNC">           0 : export const subtractTokens = (total: number | undefined, subtrahend: number | undefined): number | undefined =&gt; {</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaUNC">           0 :   if (total === undefined) return undefined</span></span>
+<span id="L74"><span class="lineNum">      74</span> <span class="tlaUNC">           0 :   if (subtrahend === undefined) return total</span></span>
+<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">           2 :   return Math.max(0, total - subtrahend)</span></span>
 <span id="L76"><span class="lineNum">      76</span>              : }</span>
 <span id="L77"><span class="lineNum">      77</span>              : </span>
 <span id="L78"><span class="lineNum">      78</span>              : /**</span>
@@ -270,7 +270,7 @@
 <span id="L208"><span class="lineNum">     208</span> <span class="tlaUNC">           0 : export const validateToolFile = (route: string, part: ToolFileContent, supportedMimes: ReadonlySet&lt;string&gt;) =&gt;</span></span>
 <span id="L209"><span class="lineNum">     209</span> <span class="tlaGNC">           2 :   validateMedia(route, { type: &quot;media&quot;, mediaType: part.mime, data: part.uri, filename: part.name }, supportedMimes)</span></span>
 <span id="L210"><span class="lineNum">     210</span>              : </span>
-<span id="L211"><span class="lineNum">     211</span> <span class="tlaGNC">          62 : export const trimBaseUrl = (value: string) =&gt; value.replace(/\/+$/, &quot;&quot;)</span></span>
+<span id="L211"><span class="lineNum">     211</span> <span class="tlaGNC">          27 : export const trimBaseUrl = (value: string) =&gt; value.replace(/\/+$/, &quot;&quot;)</span></span>
 <span id="L212"><span class="lineNum">     212</span>              : </span>
 <span id="L213"><span class="lineNum">     213</span> <span class="tlaUNC">           0 : export const toolResultText = (part: ToolResultPart) =&gt; {</span></span>
 <span id="L214"><span class="lineNum">     214</span> <span class="tlaUNC">           0 :   if (part.result.type === &quot;text&quot;) return String(part.result.value)</span></span>
@@ -301,13 +301,13 @@
 <span id="L239"><span class="lineNum">     239</span>              :  * implement client-driven retries) so the public error channel stays</span>
 <span id="L240"><span class="lineNum">     240</span>              :  * `LLMError`.</span>
 <span id="L241"><span class="lineNum">     241</span>              :  */</span>
-<span id="L242"><span class="lineNum">     242</span> <span class="tlaGNC">          35 : export const sseFraming = (bytes: Stream.Stream&lt;Uint8Array, LLMError&gt;): Stream.Stream&lt;string, LLMError&gt; =&gt;</span></span>
-<span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">          11 :   bytes.pipe(</span></span>
-<span id="L244"><span class="lineNum">     244</span> <span class="tlaGNC">          21 :     Stream.decodeText(),</span></span>
-<span id="L245"><span class="lineNum">     245</span> <span class="tlaGNC">          41 :     Stream.pipeThroughChannel(Sse.decode()),</span></span>
-<span id="L246"><span class="lineNum">     246</span> <span class="tlaGNC">          27 :     Stream.catchTag(&quot;Retry&quot;, () =&gt; Stream.empty),</span></span>
-<span id="L247"><span class="lineNum">     247</span> <span class="tlaGNC">          74 :     Stream.filter((event) =&gt; event.data.length &gt; 0 &amp;&amp; event.data !== &quot;[DONE]&quot;),</span></span>
-<span id="L248"><span class="lineNum">     248</span> <span class="tlaGNC">          31 :     Stream.map((event) =&gt; event.data),</span></span>
+<span id="L242"><span class="lineNum">     242</span> <span class="tlaUNC">           0 : export const sseFraming = (bytes: Stream.Stream&lt;Uint8Array, LLMError&gt;): Stream.Stream&lt;string, LLMError&gt; =&gt;</span></span>
+<span id="L243"><span class="lineNum">     243</span> <span class="tlaUNC">           0 :   bytes.pipe(</span></span>
+<span id="L244"><span class="lineNum">     244</span> <span class="tlaUNC">           0 :     Stream.decodeText(),</span></span>
+<span id="L245"><span class="lineNum">     245</span> <span class="tlaUNC">           0 :     Stream.pipeThroughChannel(Sse.decode()),</span></span>
+<span id="L246"><span class="lineNum">     246</span> <span class="tlaUNC">           0 :     Stream.catchTag(&quot;Retry&quot;, () =&gt; Stream.empty),</span></span>
+<span id="L247"><span class="lineNum">     247</span> <span class="tlaUNC">           0 :     Stream.filter((event) =&gt; event.data.length &gt; 0 &amp;&amp; event.data !== &quot;[DONE]&quot;),</span></span>
+<span id="L248"><span class="lineNum">     248</span>              :     Stream.map((event) =&gt; event.data),</span>
 <span id="L249"><span class="lineNum">     249</span> <span class="tlaGNC">           2 :   )</span></span>
 <span id="L250"><span class="lineNum">     250</span>              : </span>
 <span id="L251"><span class="lineNum">     251</span>              : /**</span>
@@ -368,9 +368,9 @@
 <span id="L306"><span class="lineNum">     306</span>              :  * `LLMError` carrying the original parse-error message.</span>
 <span id="L307"><span class="lineNum">     307</span>              :  */</span>
 <span id="L308"><span class="lineNum">     308</span> <span class="tlaGNC">          26 : export const validateWith =</span></span>
-<span id="L309"><span class="lineNum">     309</span> <span class="tlaGNC">          11 :   &lt;A, I, E extends { readonly message: string }&gt;(decode: (input: I) =&gt; Effect.Effect&lt;A, E&gt;) =&gt;</span></span>
-<span id="L310"><span class="lineNum">     310</span> <span class="tlaGNC">          13 :   (payload: I) =&gt;</span></span>
-<span id="L311"><span class="lineNum">     311</span> <span class="tlaGNC">          40 :     decode(payload).pipe(Effect.mapError((error) =&gt; invalidRequest(error.message)))</span></span>
+<span id="L309"><span class="lineNum">     309</span> <span class="tlaUNC">           0 :   &lt;A, I, E extends { readonly message: string }&gt;(decode: (input: I) =&gt; Effect.Effect&lt;A, E&gt;) =&gt;</span></span>
+<span id="L310"><span class="lineNum">     310</span> <span class="tlaUNC">           0 :   (payload: I) =&gt;</span></span>
+<span id="L311"><span class="lineNum">     311</span> <span class="tlaGNC">           2 :     decode(payload).pipe(Effect.mapError((error) =&gt; invalidRequest(error.message)))</span></span>
 <span id="L312"><span class="lineNum">     312</span>              : </span>
 <span id="L313"><span class="lineNum">     313</span>              : /**</span>
 <span id="L314"><span class="lineNum">     314</span>              :  * Build an HTTP POST with a JSON body. Sets `content-type: application/json`</span>
@@ -379,10 +379,10 @@
 <span id="L317"><span class="lineNum">     317</span>              :  * routes can choose between</span>
 <span id="L318"><span class="lineNum">     318</span>              :  * `Schema.encodeSync(payload)` and `ProviderShared.encodeJson(payload)`.</span>
 <span id="L319"><span class="lineNum">     319</span>              :  */</span>
-<span id="L320"><span class="lineNum">     320</span> <span class="tlaGNC">          33 : export const jsonPost = (input: { readonly url: string; readonly body: string; readonly headers?: Headers.Input }) =&gt;</span></span>
-<span id="L321"><span class="lineNum">     321</span> <span class="tlaGNC">          39 :   HttpClientRequest.post(input.url).pipe(</span></span>
-<span id="L322"><span class="lineNum">     322</span> <span class="tlaGNC">         113 :     HttpClientRequest.setHeaders(Headers.set(Headers.fromInput(input.headers), &quot;content-type&quot;, &quot;application/json&quot;)),</span></span>
-<span id="L323"><span class="lineNum">     323</span> <span class="tlaGNC">          58 :     HttpClientRequest.bodyText(input.body, &quot;application/json&quot;),</span></span>
+<span id="L320"><span class="lineNum">     320</span> <span class="tlaUNC">           0 : export const jsonPost = (input: { readonly url: string; readonly body: string; readonly headers?: Headers.Input }) =&gt;</span></span>
+<span id="L321"><span class="lineNum">     321</span> <span class="tlaUNC">           0 :   HttpClientRequest.post(input.url).pipe(</span></span>
+<span id="L322"><span class="lineNum">     322</span> <span class="tlaUNC">           0 :     HttpClientRequest.setHeaders(Headers.set(Headers.fromInput(input.headers), &quot;content-type&quot;, &quot;application/json&quot;)),</span></span>
+<span id="L323"><span class="lineNum">     323</span>              :     HttpClientRequest.bodyText(input.body, &quot;application/json&quot;),</span>
 <span id="L324"><span class="lineNum">     324</span> <span class="tlaGNC">           2 :   )</span></span>
 <span id="L325"><span class="lineNum">     325</span>              : </span>
 <span id="L326"><span class="lineNum">     326</span> <span class="tlaGNC">          42 : export * as ProviderShared from &quot;./shared&quot;</span></span>

@@ -1,6 +1,6 @@
 import type * as Arr from "effect/Array"
-import { NodeFileSystem, NodeSink, NodeStream } from "@effect/platform-node"
-import * as NodePath from "@effect/platform-node/NodePath"
+import {NodeSink, NodeStream } from "@effect/platform-node"
+// import * as NodePath from "@effect/platform-node/NodePath"
 import * as Deferred from "effect/Deferred"
 import * as Effect from "effect/Effect"
 import * as Exit from "effect/Exit"
@@ -30,24 +30,33 @@ import { filesystem, path } from "./effect/app-node-platform"
 const toError = (err: unknown): Error => (err instanceof globalThis.Error ? err : new globalThis.Error(String(err)))
 
 const toTag = (err: NodeJS.ErrnoException): PlatformError.SystemErrorTag => {
+  let tag: PlatformError.SystemErrorTag
   switch (err.code) {
     case "ENOENT":
-      return "NotFound"
+      tag = "NotFound"
+      break
     case "EACCES":
-      return "PermissionDenied"
+      tag = "PermissionDenied"
+      break
     case "EEXIST":
-      return "AlreadyExists"
+      tag = "AlreadyExists"
+      break
     case "EISDIR":
-      return "BadResource"
+      tag = "BadResource"
+      break
     case "ENOTDIR":
-      return "BadResource"
+      tag = "BadResource"
+      break
     case "EBUSY":
-      return "Busy"
+      tag = "Busy"
+      break
     case "ELOOP":
-      return "BadResource"
+      tag = "BadResource"
+      break
     default:
-      return "Unknown"
+      tag = "Unknown"
   }
+  return tag
 }
 
 const flatten = (command: ChildProcess.Command) => {

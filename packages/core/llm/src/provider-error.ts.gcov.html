@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - lcov-clean.info - ../llm/src/provider-error.ts</title>
+  <title>LCOV - lcov.info - ../llm/src/provider-error.ts</title>
   <link rel="stylesheet" type="text/css" href="../../../gcov.css">
 </head>
 
@@ -28,16 +28,16 @@
           </tr>
           <tr>
             <td class="headerItem">Test:</td>
-            <td class="headerValue">lcov-clean.info</td>
+            <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryHi">94.9&nbsp;%</td>
+            <td class="headerCovTableEntryMed">87.2&nbsp;%</td>
             <td class="headerCovTableEntry">39</td>
-            <td class="headerCovTableEntry">37</td>
+            <td class="headerCovTableEntry">34</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-08-27 14:29:40</td>
+            <td class="headerValue">2026-09-04 18:06:08</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -99,10 +99,10 @@
 <span id="L37"><span class="lineNum">      37</span> <span class="tlaUNC">           0 :   !exclusions.some((pattern) =&gt; pattern.test(message)) &amp;&amp;</span></span>
 <span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">           2 :   (patterns.some((pattern) =&gt; pattern.test(message)) || /^4(00|13)\s*(status code)?\s*\(no body\)/i.test(message))</span></span>
 <span id="L39"><span class="lineNum">      39</span>              : </span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          51 : export const isContextOverflowFailure = (failure: unknown) =&gt;</span></span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          29 :   failure instanceof LLMError</span></span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">          98 :     ? failure.reason._tag === &quot;InvalidRequest&quot; &amp;&amp; failure.reason.classification === &quot;context-overflow&quot;</span></span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          88 :     : Schema.is(ProviderErrorEvent)(failure) &amp;&amp; failure.classification === &quot;context-overflow&quot;</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaUNC">           0 : export const isContextOverflowFailure = (failure: unknown) =&gt;</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaUNC">           0 :   failure instanceof LLMError</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaUNC">           0 :     ? failure.reason._tag === &quot;InvalidRequest&quot; &amp;&amp; failure.reason.classification === &quot;context-overflow&quot;</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           1 :     : Schema.is(ProviderErrorEvent)(failure) &amp;&amp; failure.classification === &quot;context-overflow&quot;</span></span>
         </pre>
               </td>
             </tr>
