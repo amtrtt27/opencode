@@ -31,6 +31,8 @@ function decodeByteStream(stream: Stream.Stream<Uint8Array, PlatformError.Platfo
   )
 }
 
+const drainBytes = Sink.drain.pipe(Sink.as(new Uint8Array()))
+
 function alive(pid: number) {
   try {
     process.kill(pid, 0)
@@ -228,7 +230,7 @@ describe("cross-spawn spawner", () => {
       "supports Sink as stdout",
       Effect.gen(function* () {
         const handle = yield* js('process.stdout.write("hello")', {
-          stdout: Sink.drain,
+          stdout: drainBytes,
         })
 
         const code = yield* handle.exitCode
@@ -240,7 +242,7 @@ describe("cross-spawn spawner", () => {
       "supports Sink as stderr",
       Effect.gen(function* () {
         const handle = yield* js('process.stderr.write("error")', {
-          stderr: Sink.drain,
+          stderr: drainBytes,
         })
 
         const code = yield* handle.exitCode
